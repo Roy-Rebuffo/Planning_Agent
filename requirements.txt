@@ -1,0 +1,5 @@
+CONSIGUE TU API KEY DE GROQ AQUI:
+https://console.groq.com/keys
+
+groq>=0.9.0
+python-dotenv>=1.0.0
