@@ -5,4 +5,4 @@ __pycache__/
 .DS_Store
 venv/
 .venv/
-plan_semanal.txt
+weekly_planning.txt
