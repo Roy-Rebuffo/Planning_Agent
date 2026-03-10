@@ -26,7 +26,7 @@ git clone <repo-url>
 cd planning_agent
 ```
 
-2. Create a virtual environment and install dependencies::
+2. Create a virtual environment and install dependencies:
 ```bash
 python -m venv venv
 source venv/bin/activate      # Windows: venv\Scripts\activate
