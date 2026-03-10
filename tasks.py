@@ -1,6 +1,4 @@
-# tasks.py
-# Lista de tareas de entrada del programa.
-# Cada tarea tiene: nombre, días hasta el deadline y duración estimada en horas.
+# List of entry tasks of the app
 
 TASKS = [
     {"task": "Preparar presentación", "deadline_days": 2, "duration": 3},
