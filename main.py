@@ -1,28 +1,20 @@
-# Entry point
-# WorkFlow: load tasks -> call agent -> display result -> save to file
+# Entry point of the application.
+# Run with: streamlit run main.py
 
-from tasks import TASKS
-from src.agents.agent import PlanningAgent
-from src.utils.file_handler import save_plan
+import sys
+import os
 
-def main():
-    print("Starting building agent...\n")
+# Add src to the Python path so all modules are found
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 
-    agent = PlanningAgent()
+from dotenv import load_dotenv
+import streamlit as st
 
-    print(f"Incomming tasks: {len(TASKS)}")
+load_dotenv()
 
-    for t in TASKS:
-        print(f"   - {t['task']}  (deadline:  {t['deadline_days']} days, duration:  {t['duration']}hrs)")
-    
-    print("\n Analysing tasks...")
-    result = agent.run(TASKS)
+if not os.getenv("GROQ_API_KEY"):
+    st.error("❌ GROQ_API_KEY not found. Check your .env file.")
+    st.stop()
 
-    print("=" * 50)
-    print(result)
-    print("=" * 50)
-
-    save_plan(result)
-
-if __name__ == "__main__":
-    main()
+from ui.streamlit_ui import run_app
+run_app()
