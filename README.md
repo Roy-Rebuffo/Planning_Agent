@@ -1,60 +1,71 @@
-# AI Mini-Planning Agent
-A Python agent that analyzes a list of tasks, prioritizes them, and generates a weekly plan using an LLM (Groq + LLaMA 3.3 70B).
+# 🗓️ Planning Agent (Groq + LangChain)
 
-## Project Structure
-```
-mini-planning-agent/
-├── main.py                   # Entry point
-├── tasks.py                  # Input task list
-├── requirements.txt
-├── .env.example              # Environment variables template
-├── weekly_plan.txt           # Generated upon execution (do not upload to git)
-└── src/
-    ├── agents/
-    │   └── agent.py          # PlanningAgent — calls the LLM
-    ├── models/
-    │   └── task.py           # Task Class — data model
-    └── utils/
-        └── file_handler.py   # Save and read the generated plan
-```
+An intelligent weekly planning agent that analyses a to-do list and generates a prioritised plan using AI.
 
-## Installation
+## ✨ Features
 
-1. Clone the repository and enter the folder:
+- **Visual interface:** An interactive form created with Streamlit.
+- **AI analysis:** Prioritises tasks and generates a weekly plan using LLaMA 3.3 70B via Groq.
+- **Data validation:** Tasks are automatically validated with Pydantic.
+- **Explained reasoning:** The agent explains why it has assigned each priority.
+
+## 🛠️ Installation
+
+1. **Clone the project:**
 ```bash
 git clone <repo-url>
 cd planning_agent
 ```
 
-2. Create a virtual environment and install dependencies::
+2. **Create and activate the virtual environment:**
 ```bash
 python -m venv venv
-source venv/bin/activate      # Windows: venv\Scripts\activate
+# Windows:
+.\venv\Scripts\activate
+# Mac/Linux:
+source venv/bin/activate
+```
+
+3. **Install dependencies:**
+```bash
 pip install -r requirements.txt
 ```
 
-3. Get your GROQ API key:
-```bash
-https://console.groq.com/keys
-```
-
-4. Configure your Groq API key:
+4. **Configure the API key:**
 ```bash
 cp .env.example .env
-# Edit .env and add your GROQ_API_KEY
+# Edit .env and add your Groq API key
 ```
 
-## Usage
+## 🚀 Usage
 ```bash
-python main.py
+streamlit run main.py
 ```
 
-The result is printed to the console and automatically saved in `weekly_planning.txt`.
+1. Add your tasks with a name, days until the deadline and estimated duration.
+2. Click **‘Generate plan’** and get your weekly plan with reasoning included.
 
-## Design Decisions
+## 📁 Project structure
+```
+planning_agent/
+├── src/
+│   ├── models/
+|        └── task_model.py        # Data model with Pydantic
+│   ├── prompts/
+|        └── planner_prompts.py   # System and human prompts
+│   ├── services/
+|        └── planner_service.py   # Agent logic with LangChain + Groq
+│   └── ui/
+│       └── streamlit_ui.py       # User interface
+├── main.py
+├── .env.example
+├── requirements.txt
+└── venv/
+```
 
-- **`tasks.py` separate**: Makes it easier to change the data source without touching the core logic.
-- **`PlanningAgent` as a class**: Allows for future expansion with memory or multiple agents.
-- **`file_handler.py` separate**: Single Responsibility Principle — the agent knows nothing about files.
-- **`temperature=0.3`**: More deterministic and consistent responses in the output format.
-- **Separate System prompt + user prompt**: Better control over the model's behavior.
+## What would I improve if I had more time?
+
+- Export the generated plan to a `.txt` or `.pdf` file
+- Support for monthly planning when tasks span more than 7 days
+- History of previous plans
+- Unit tests
