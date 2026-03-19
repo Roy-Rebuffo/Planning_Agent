@@ -6,7 +6,7 @@
 from langchain_core.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
 
 # Who the agent is and how it behaves
-SYSTEM_TEMPLATE = """
+SYSTEM_TEMPLATE = SystemMessagePromptTemplate.from_template("""
 You are an expert task planning assistant.
 Your job is to analyse a list of tasks and generate a clear weekly plan.
 
@@ -16,9 +16,9 @@ Prioritisation criteria:
 
 Always respond in Spanish and follow the exact format specified by the user.
 """
-
+)
 # What the user sends — {tasks} will be replaced with the real task list
-HUMAN_TEMPLATE = """
+HUMAN_TEMPLATE = HumanMessagePromptTemplate.from_template("""
 Analyse the following tasks and generate a weekly plan.
 
 Tasks:
@@ -41,12 +41,12 @@ Viernes: [tarea]
 Razón:
 [Briefly explain why you assigned that priority and order]
 """
-
+)
 # Combine both into a single prompt template
 CHAT_PROMPT = ChatPromptTemplate.from_messages([
     SYSTEM_TEMPLATE,
     HUMAN_TEMPLATE
 ])
 
-def create_prompt_system():
+def create_system_prompt():
     return CHAT_PROMPT
