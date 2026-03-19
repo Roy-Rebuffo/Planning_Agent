@@ -43,8 +43,14 @@ def run_app():
 
         # Generate plan button
         if st.button("Generar plan"):
-            with st.spinner("Analizando el plan..."):
-                result = generate_plan(st.session_state.tasks)
+            total_days = sum(task.duration_days for task in st.session_state.tasks)
+            
+            if total_days > 7:
+                st.warning(f"⚠️ Tus tareas suman {total_days} días en total. Un plan semanal solo tiene 7 días. Reduce las tareas o sus duraciones.")
+            else:
+                with st.spinner("Analizando el plan..."):
+                    result = generate_plan(st.session_state.tasks)
+                st.subheader("📋 Tu plan semanal")
+                st.text(result)
 
-            st.subheader("📋 Tu plan semanal")
-            st.text(result)
+        
